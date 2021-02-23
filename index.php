@@ -1,5 +1,7 @@
 <?php 
-include 'process.php';?> 
+include 'process.php';
+$result = mysqli_query($conn,"SELECT * FROM user");
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +49,7 @@ Password<input type="password" name="myPass" ><br>
                </tr>            
             </thead>
             <?php
-            $result = mysqli_query($conn,"SELECT * FROM user");
+            $i=0;
             while ($row = mysqli_fetch_array($result)){
             ?>  
                <td><?php  echo $row['user_id']?></td>       
@@ -55,16 +57,16 @@ Password<input type="password" name="myPass" ><br>
                <td><?php  echo $row['password'];?></td>
                <td><?php  echo $row['status'];?></td>
                <td>
-                     <a href="index.php?edit=<?php echo $row['user_id'];?>"
+                     <a href="edit-process.php?edit=<?php echo $row['user_id'];?>"
                         class="btn btn-info">Edit</a>
-                     <a href="delete.php?delete=<?php echo $row['user_id']?>"
+                     <a href="delete-process.php?delete=<?php echo $row['user_id']?>"
                         class="btn btn-danger">Delete</a>
                </td>
          </tr>
-         <?php 
-            ;
-         }
-         ?>
+            <?php 
+            $i++;
+            }
+            ?>
          </table> 
    </div>
 
@@ -76,7 +78,7 @@ Password<input type="password" name="myPass" ><br>
 </div>
 
 <div class="row justify-content-center">
-         <form action="insert.php" method="POST">
+         <form action="create-process.php" method="POST">
             <div class="form-group">
                <label>Username</label>
                <input type="text" name="username" class="form-control"  required autofucos>
